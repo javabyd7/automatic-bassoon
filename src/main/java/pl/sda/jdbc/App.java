@@ -18,13 +18,8 @@ public class App
            e.printStackTrace();
        }
    }
-    public static void main( String[] args )  {
-        Connection connection=null;
-        try {
-           connection= DriverManager.getConnection("jdbc:mysql://localhost:3306/employee_db?serverTimezone=UTC", "root","root");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public static void main( String[] args ) throws SQLException {
+        Connection connection = DBConnector.getConnection();
         Statement statement= null;
         try {
             statement=connection.createStatement();
@@ -45,19 +40,9 @@ public class App
                  System.out.println("jobTitle "+resultSet.getString("jobTitle"));
              }
 
-             String insert = "insert into employees(employeeNumber,lastName,"+"firstName,extension,email,officeCode,reportsTo,jobTitle)"+
-                     "values (?,?,?,?,?,?,?,?)";
-             PreparedStatement preparedStatement= connection.prepareStatement(insert);
-             preparedStatement.setInt(1,10000);
-             preparedStatement.setString(2,"NoweImie");
-             preparedStatement.setString(3,"NoweImie");
-             preparedStatement.setString(4,"NoweImie");
-             preparedStatement.setString(5,"NoweImie");
-             preparedStatement.setInt(6,4);
-             preparedStatement.setInt(7,1002);
-             preparedStatement.setString(8,"NoweImie");
 
-             preparedStatement.executeUpdate();
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
